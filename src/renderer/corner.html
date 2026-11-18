@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Boom · achicar cámara</title>
+<style>
+  /* Botón escondido en la esquina: aparece al pasar el mouse. Esta ventana no sale en el video. */
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; user-select: none; }
+  body { display: flex; align-items: flex-start; justify-content: flex-end; }
+  button { margin: 6px; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 12px;
+           border: 1px solid rgba(255,255,255,.22); border-radius: 22px; cursor: pointer;
+           background: rgba(11,31,68,.94); color: #fff; font: 600 13.5px 'Segoe UI', system-ui, sans-serif;
+           opacity: 0; transform: translateY(-6px); transition: opacity .18s ease, transform .18s ease, background .12s; }
+  button svg { width: 18px; height: 18px; fill: currentColor; }
+  body:hover button, body.hint button { opacity: 1; transform: none; }
+  button:hover { background: #2068D7; }
+</style></head>
+<body class="hint">
+  <button id="shrink" title="Volver la cámara al tamaño chico">
+    <svg viewBox="0 0 24 24"><path d="M9 4h2v7H4V9h3.6L3.3 4.7l1.4-1.4L9 7.6zM15 13h5v2h-3.6l4.3 4.3-1.4 1.4-4.3-4.3V20h-2v-7z"/></svg>
+    Achicar cámara
+  </button>
+<script>
+  // Al aparecer se muestra unos segundos para que se sepa que está ahí; después se esconde.
+  let t = setTimeout(() => document.body.classList.remove('hint'), 3200);
+  window.boom.on('boom:hint', () => {
+    document.body.classList.add('hint');
+    clearTimeout(t);
+    t = setTimeout(() => document.body.classList.remove('hint'), 3200);
+  });
+  document.getElementById('shrink').onclick = () => window.boom.invoke('boom:shrinkCamera');
+</script>
+</body></html>

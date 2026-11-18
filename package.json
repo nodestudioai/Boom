@@ -1,0 +1,82 @@
+{
+  "name": "boom",
+  "version": "0.4.0",
+  "description": "Boom: grabá tu pantalla y tu cámara y compartí el video por link. Como Loom, pero open source.",
+  "author": "NodeStudio",
+  "private": true,
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/*.test.js\"",
+    "smoke": "node scripts/smoke.js",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "app.boom.recorder",
+    "productName": "Boom",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "artifactName": "Boom-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    },
+    "artifactName": "Boom-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.productivity",
+      "extendInfo": {
+        "NSCameraUsageDescription": "Boom usa la cámara para grabarte junto a tu pantalla.",
+        "NSMicrophoneUsageDescription": "Boom usa el micrófono para grabar tu voz."
+      }
+    },
+    "dmg": {
+      "title": "Boom ${version}"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png",
+      "category": "AudioVideo",
+      "maintainer": "NodeStudio",
+      "synopsis": "Grabá pantalla y cámara y compartí el video por link"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.3.2",
+    "electron-builder": "^26.18.0"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/nodestudioai/Boom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodestudioai/Boom.git"
+  }
+}

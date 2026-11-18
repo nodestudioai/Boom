@@ -1,0 +1,14 @@
+# Boom en la nube: un Worker de Cloudflare que guarda los videos en R2 y sirve los links.
+name = "boom"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "boom-videos"
+
+# Subtítulos automáticos: Whisper en Workers AI (gratis hasta 10.000 "neuronas" por día,
+# alcanza para unas 3 horas de video por día).
+[ai]
+binding = "AI"
+remote = true  # en "wrangler dev" la IA corre igual en Cloudflare (no existe una versión local)

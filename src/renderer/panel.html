@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Boom</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <div class="brand">
+    <img src="img/boom-mark.png" alt="" width="34" height="34">
+    <span class="word">Boom</span>
+    <span class="ver" id="ver"></span>
+  </div>
+  <nav>
+    <button class="tab on" data-tab="grabar">Grabar</button>
+    <button class="tab" data-tab="videos">Mis videos</button>
+    <button class="tab" data-tab="compartir">Compartir</button>
+  </nav>
+</header>
+
+<main>
+  <section id="grabar" class="view on">
+    <div class="modes" id="mode">
+      <button data-v="screen_cam">
+        <svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="18" rx="3"/><path d="M11 27h10"/><circle cx="11" cy="17" r="3.4" class="fill"/></svg>
+        <span>Pantalla + cámara</span>
+      </button>
+      <button data-v="screen">
+        <svg viewBox="0 0 32 32"><rect x="3" y="5" width="26" height="18" rx="3"/><path d="M11 27h10"/></svg>
+        <span>Solo pantalla</span>
+      </button>
+      <button data-v="cam">
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="12" r="5"/><path d="M6 27c1.2-5 5-8 10-8s8.800 3 10 8"/></svg>
+        <span>Solo cámara</span>
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Dispositivos</h3>
+      <label class="row" id="rowDisplay"><span>Pantalla</span><select id="display"></select></label>
+      <label class="row" id="rowCamera"><span>Cámara</span><select id="camera"></select></label>
+      <label class="row"><span>Micrófono</span><select id="mic"></select></label>
+      <div class="meter" title="Nivel del micrófono: hablá y tiene que moverse"><i id="level"></i></div>
+      <p class="note warn" id="micNote"></p>
+    </div>
+
+    <div class="card" id="cardCam">
+      <h3>Cámara</h3>
+      <div class="shapes" id="shape">
+        <button data-v="circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg><span>Círculo</span></button>
+        <button data-v="square"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span>Cuadrado</span></button>
+        <button data-v="rect"><svg viewBox="0 0 24 24"><rect x="2.500" y="6.500" width="19" height="11" rx="3"/></svg><span>Rectángulo</span></button>
+        <button data-v="full"><svg viewBox="0 0 24 24"><path d="M4 4h6v2H6v4H4zM14 4h6v6h-2V6h-4zM4 14h2v4h4v2H4zM18 14h2v6h-6v-2h4z"/></svg><span>Completa</span></button>
+      </div>
+      <div class="row" id="rowSize"><span>Tamaño</span>
+        <div class="seg" id="size"><button data-v="s">Chica</button><button data-v="m">Mediana</button><button data-v="l">Grande</button></div>
+      </div>
+      <div class="row" id="rowFrame"><span>Marco</span>
+        <div class="swatches" id="frame">
+          <button data-v="none" title="Sin marco" class="none"><i></i></button>
+          <button data-v="blue" title="Azul"><i style="--c:#2068D7"></i></button>
+          <button data-v="cyan" title="Celeste"><i style="--c:#00BAF4"></i></button>
+          <button data-v="white" title="Blanco"><i style="--c:#FFFFFF"></i></button>
+          <button data-v="navy" title="Azul oscuro"><i style="--c:#0B1F44"></i></button>
+        </div>
+      </div>
+      <label class="switch" id="swRounded"><span>Esquinas redondeadas<small>En cuadrado y rectángulo. Apagado, quedan rectas.</small></span><input type="checkbox" id="rounded"><i></i></label>
+      <label class="switch"><span>Cámara espejada</span><input type="checkbox" id="mirror"><i></i></label>
+    </div>
+
+    <div class="card">
+      <h3>Video y sonido</h3>
+      <div class="row"><span>Calidad</span>
+        <div class="seg" id="preset"><button data-v="max">Máxima</button><button data-v="high">Alta</button><button data-v="light">Liviana</button></div>
+      </div>
+      <div class="row"><span>Fluidez</span>
+        <div class="seg" id="fps"><button data-v="30">30 fps</button><button data-v="60">60 fps</button></div>
+      </div>
+      <p class="note" id="qualityHint"></p>
+      <label class="switch"><span>Tu logo en el video<small id="markHint">Chiquito, arriba a la izquierda del video.</small></span><input type="checkbox" id="watermark"><i></i></label>
+      <div class="logopick" id="logoPick"><span id="logoName"></span><button class="link" id="pickLogo">Elegir imagen…</button><button class="link" id="clearLogo">Usar el de Boom</button></div>
+      <label class="switch" id="chkSystem"><span>Grabar el audio de la PC</span><input type="checkbox" id="systemAudio"><i></i></label>
+      <label class="switch"><span>Reducir ruido del micrófono</span><input type="checkbox" id="noiseSuppression"><i></i></label>
+      <label class="switch"><span>Voz en los dos oídos<small>Para micrófonos que mandan la voz por un solo lado.</small></span><input type="checkbox" id="micMono"><i></i></label>
+    </div>
+  </section>
+
+  <section id="videos" class="view">
+    <div class="listhead"><span id="count"></span>
+      <span class="headbtns"><button class="link" id="mergeBtn">Juntar videos</button><button class="link" id="openDir">Abrir carpeta</button></span></div>
+    <p class="pickhint">Tocá los videos <b>en el orden en que van a ir</b>: el primero que toques queda al principio.
+      Se arma un video nuevo; los originales no se tocan.</p>
+    <div id="list"></div>
+    <div class="mergebar">
+      <div class="pickinfo"><b id="pickCount"></b><small id="pickDur"></small></div>
+      <button class="secondary" id="pickCancel">Cancelar</button>
+      <button class="go" id="pickGo">Juntar</button>
+    </div>
+    <div class="empty" id="empty">
+      <img src="img/boom.png" alt="" width="64" height="64">
+      <p>Todavía no grabaste nada.<br>Tus videos van a aparecer acá.</p>
+    </div>
+  </section>
+
+  <section id="compartir" class="view">
+    <div class="card">
+      <h3>Links para compartir</h3>
+      <p class="note">Boom sube tus videos a tu propio espacio en Cloudflare (gratis) y te da un link. La primera vez seguí el
+        <button class="link" id="openGuide">paso a paso</button> (unos 10 minutos) y pegá acá los dos datos.</p>
+      <label class="col"><span>Dirección de tu Boom en la nube</span><input id="baseUrl" placeholder="https://boom.tu-cuenta.workers.dev" spellcheck="false"></label>
+      <label class="col"><span>Token secreto</span><input id="token" type="password" placeholder="el que elegiste al instalar" spellcheck="false"></label>
+      <div class="actions"><button id="saveCloud" class="secondary">Guardar</button><button id="testCloud" class="secondary">Probar conexión</button></div>
+      <p class="state" id="cloudState"></p>
+    </div>
+    <div class="card">
+      <h3>Subtítulos</h3>
+      <label class="switch"><span>Subtítulos automáticos<small>Al copiar el link, Boom transcribe el video y le agrega subtítulos.
+        Quien mira los prende o apaga con el botón <b>Subtítulos</b>.</small></span><input type="checkbox" id="captions"><i></i></label>
+      <label class="row"><span>Idioma</span><select id="captionsLang">
+        <option value="auto">Detectarlo solo</option><option value="es">Español</option><option value="en">English</option>
+        <option value="pt">Português</option><option value="fr">Français</option><option value="it">Italiano</option><option value="de">Deutsch</option>
+      </select></label>
+      <p class="note">Para videos que ya tienen link, usá <b>Agregar subtítulos</b> en Mis videos. Se hacen con la IA de tu
+        Cloudflare (gratis hasta unas 3 horas de video por día).</p>
+    </div>
+  </section>
+</main>
+
+<footer id="foot">
+  <button id="start" class="primary"><i class="recdot"></i>Empezar a grabar</button>
+  <p class="keys" id="keys"><kbd>Ctrl+Shift+B</kbd> graba y termina · <kbd>Alt+Shift+P</kbd> pausa · <kbd>Alt+Shift+Z</kbd> retrocede</p>
+</footer>
+
+<div id="busy"><div class="spinner"></div><span id="busyText"></span></div>
+<div id="toasts"></div>
+<script src="panel.js"></script>
+</body></html>

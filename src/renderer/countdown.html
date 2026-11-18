@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Boom</title>
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
+  body { display: flex; align-items: center; justify-content: center; }
+  #n { width: 220px; height: 220px; border-radius: 50%; background: rgba(32,104,215,.94); color: #fff;
+       font: 700 120px/220px 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif; text-align: center;
+       box-shadow: 0 0 0 6px rgba(255,255,255,.95), 0 10px 40px rgba(11,31,68,.45); animation: pop 1s ease-out infinite; }
+  @keyframes pop { 0% { transform: scale(.82); opacity: .4 } 25% { transform: scale(1); opacity: 1 } 100% { transform: scale(1); opacity: 1 } }
+</style></head>
+<body><div id="n"></div>
+<script>
+  let s = Number(new URLSearchParams(location.search).get('s')) || 3;
+  const n = document.getElementById('n');
+  n.textContent = s;
+  setInterval(() => { s -= 1; if (s > 0) n.textContent = s; }, 1000);
+</script></body></html>

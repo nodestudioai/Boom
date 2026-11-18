@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Boom · cámara</title>
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; background: transparent; overflow: hidden; }
+  body { -webkit-app-region: drag; cursor: grab; user-select: none; }
+  body.full { -webkit-app-region: no-drag; cursor: default; }
+  /* La cámara se dibuja en un lienzo y la forma se recorta al dibujar. Un <video> directo
+     en una ventana transparente no respeta el recorte (sale cuadrado). */
+  canvas, #msg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #msg { display: none; box-sizing: border-box; background: #0B1F44; align-items: center; justify-content: center;
+         text-align: center; color: #d6e2f7; font: 500 13px/1.35 'Segoe UI', system-ui, sans-serif; padding: 14%; }
+  .circle #msg { clip-path: circle(50% at 50% 50%); }
+  .square #msg { clip-path: inset(0 round 10%); }
+  .rect   #msg { clip-path: inset(0 round 22px); }
+  .sharp.square #msg, .sharp.rect #msg { clip-path: none; }
+  .nocam #msg { display: flex; }
+  .nocam canvas { display: none; }
+</style></head>
+<body class="circle">
+  <canvas id="c"></canvas>
+  <div id="msg">Sin cámara</div>
+  <script src="_core/bubble.js"></script>
+  <script src="bubble.js"></script>
+</body></html>

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+cloud/.wrangler/
+cloud/node_modules/
+*.log
+
+# Secretos locales del Worker (ver cloud/.dev.vars.example)
+cloud/.dev.vars
+
+# Notas internas de diseño
+docs/superpowers/
+
+.claude/
+.DS_Store
+Thumbs.db
