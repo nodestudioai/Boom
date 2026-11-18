@@ -60,7 +60,7 @@ sistema:
 |---|---|
 | Windows 10/11 | `Boom-Setup-<versión>.exe` |
 | Mac (Apple Silicon: M1 o más nuevo) | `Boom-<versión>-mac-arm64.dmg` |
-| Linux (64 bits) | `Boom-<versión>-linux-x64.AppImage` o `.deb` |
+| Linux (64 bits) | `Boom-<versión>-linux-x86_64.AppImage` o `Boom-<versión>-linux-amd64.deb` |
 
 ¿Mac con Intel? Por ahora hay que armarlo [desde el código](#desde-el-código).
 
